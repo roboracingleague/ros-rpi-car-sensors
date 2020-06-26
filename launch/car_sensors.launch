@@ -1,0 +1,6 @@
+<launch>
+
+  <node name="remote_reader" type="remote_reader" pkg="car_sensors" output="screen">
+  </node>
+
+</launch>
