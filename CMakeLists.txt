@@ -117,7 +117,7 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
-# include
+ include
  ${catkin_INCLUDE_DIRS}
  ${pigpio_INCLUDE_DIRS}
 )
@@ -207,7 +207,7 @@ include_directories(
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
 
-add_executable(remote_reader src/remote_reader.cpp)
+add_executable(remote_reader src/pwm_sensor_reader.cpp src/remote_reader.cpp)
 target_link_libraries(remote_reader 
   ${catkin_LIBRARIES}
   pigpiod_if2
