@@ -1,0 +1,17 @@
+<launch>
+
+  <node name="remote_reader" type="remote_reader" pkg="car_sensors" output="screen">
+    <param name="steering/gpio" type="int" value="17" />
+    <param name="steering/sensitivity" type="double" value="0.015" />
+    <param name="steering/level" type="int" value="1" />
+    <param name="steering/range_min" type="int" value="1000" />
+    <param name="steering/range_max" type="int" value="2000" />
+    <param name="throttle/gpio" type="int" value="27" />
+    <param name="throttle/sensitivity" type="double" value="0.015" />
+    <param name="throttle/level" type="int" value="1" />
+    <param name="throttle/range_min" type="int" value="1000" />
+    <param name="throttle/range_max" type="int" value="2000" />
+    <param name="channel3/gpio" type="int" value="22" />
+  </node>
+
+</launch>
