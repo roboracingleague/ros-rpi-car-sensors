@@ -214,3 +214,11 @@ target_link_libraries(remote_reader
 )
 add_dependencies(remote_reader ${car_actuators_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS} pigpiod_if2)
 
+add_executable(brushless_odom src/brushless_odom.cpp)
+target_link_libraries(brushless_odom
+  ${catkin_LIBRARIES}
+  pigpiod_if2
+)
+add_dependencies(brushless_odom ${car_actuators_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS} pigpiod_if2)
+
+
