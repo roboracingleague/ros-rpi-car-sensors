@@ -9,7 +9,8 @@ ros::Publisher odom_publisher;
 
 class BrushlessOdomReader
 {
-    int pi, gpio, cb_id;
+    int pi, gpio, cb_id; 
+    int range_min = 0, range_max = 500;
     uint32_t occurences = 0;
     double last_exec = 0.0;
 
@@ -17,6 +18,7 @@ class BrushlessOdomReader
 
     /* Need a static callback to link with C. */
     static void _callbackExt(int pi, unsigned gpio, unsigned level, uint32_t tick, void *user);
+    double remap_value(double value); 
 
     public:
 
@@ -31,6 +33,8 @@ BrushlessOdomReader::BrushlessOdomReader(int in_pi, std::string prefix)
 
     pi = in_pi;
     pH.getParam("gpio", gpio);
+    pH.param("range_max", range_max, 500);
+    pH.param("range_min", range_min, 0);
 
     set_mode(pi, gpio, PI_INPUT);
     cb_id = callback_ex(pi, gpio, EITHER_EDGE, _callbackExt, (void *)this);
@@ -52,6 +56,12 @@ void BrushlessOdomReader::_callback(unsigned in_level, uint32_t tick)
     occurences++;
 }
 
+double BrushlessOdomReader::remap_value(double value) 
+{
+    return ((double)(value - range_min))/((double)(range_max - range_min));
+}
+
+
 double BrushlessOdomReader::update()
 {
     double crt = time_time();
@@ -63,7 +73,7 @@ double BrushlessOdomReader::update()
     occurences = 0;
     last_exec = crt;
 
-    return odom;
+    return remap_value(odom);
 }
 
 void publish(double value)
