@@ -36,6 +36,7 @@ BrushlessOdomReader::BrushlessOdomReader(int in_pi, std::string prefix)
     pH.param("range_max", range_max, 500);
     pH.param("range_min", range_min, 0);
 
+    set_pull_up_down(pi, gpio, PI_PUD_UP);
     set_mode(pi, gpio, PI_INPUT);
     cb_id = callback_ex(pi, gpio, EITHER_EDGE, _callbackExt, (void *)this);
 }
